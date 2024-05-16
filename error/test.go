@@ -21,7 +21,10 @@ func main() {
 
 	err3 := errors.New("hello")
 	err4 := errors.New("hello")
+
+	// err3和err4无法比较，分属于两个不同的内存区域
 	fmt.Println(err3 == err4)
 
+	// 可以比较字符串
 	fmt.Println(err3.Error() == err4.Error())
 }

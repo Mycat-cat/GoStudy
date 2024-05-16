@@ -38,3 +38,5 @@ func Errorf(format string, a ...interface{}) error {
     return err
 }
 ```
+
+## 自定义error对象
