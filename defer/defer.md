@@ -15,3 +15,6 @@ Go语言中用panic来抛出异常，用recover来捕获异常。当程序出现
 # defer与return 
 
 defer函数的执行是在return的时候。return的时候，defer具体做了什么？又会带来什么结果？
+
+1. defer定义的延迟函数的参数在defer语句出时就已经确定下来了
+2. return不是原子级操作，执行过程是：设置返回值->执行defer语句->将结果返回

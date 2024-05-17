@@ -8,14 +8,15 @@ import "fmt"
 2. 执行defer语句
 3. 将结果返回
 
-本例中,第一步将res的值设置为num,此时还未执行defer,num的值为1,所以res被设置为1,然后再执行defer语句将res+1,最终将res返回,打印出2
+本例中,与example4的区别在于返回值匿名,第一步将返回值设置为1,此时还未执行defer,num的值为0,然后再执行defer语句将num+1,最终将返回值返回,打印出1
 */
-func deferRun() (res int) {
-	num := 1
+func deferRun() int {
+	var num int
 	defer func() {
-		res++
+		num++
 	}()
-	return num
+
+	return 1
 }
 
 func main() {
