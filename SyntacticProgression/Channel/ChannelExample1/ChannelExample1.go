@@ -18,7 +18,7 @@ func main() {
 	close(ch)
 	go func() {
 		for i := 0; i < 5; i++ {
-			v := <-ch
+			v := <-ch // 闭包，可以看到外面的Goroutine---ch(被捕获)
 			fmt.Printf("v=%d\n", v)
 		}
 	}()

@@ -70,7 +70,7 @@ Channel分为两类：
 - 关闭一个未初始化的 channel 会产生 panic
 - channel只能被关闭一次，对同一个channel重复关闭会产生 panic
 - 向一个已关闭的 channel 发送消息会产生 panic
-- 从一个已关闭的channel读取消息不会发生panic，会一直读取所有数据，直到零值
+- 从一个已关闭的channel读取消息不会发生panic，会一直读取所有数据，直到零值管道定义类型的默认值（int为零值）
 - channel读端和写端都可有多个goroutine操作，在一端关闭channel的时候，该channel读端的
   所有goroutine 都会收到channel已关闭的消息
 - channel是并发安全的，多个goroutine同时读取channel中的数据，不会产生并发安全问题

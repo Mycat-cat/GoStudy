@@ -14,9 +14,9 @@ func main() {
 	ch := make(chan int, 5)
 	ch <- 1
 	ch <- 2
-	close(ch)
+	close(ch) //若没有关闭Channel，读完数据后for range也结束了，仅针对此程序来说，是因为main goroutine结束了，所有的子goroutine也会随之结束
 	go func() {
-		for v := range ch {
+		for v := range ch { //如果Channel里面没有数据读，另一端也未关闭，会阻塞
 			fmt.Printf("v=%d\n", v)
 		}
 	}()
@@ -25,4 +25,5 @@ func main() {
 
 /*
 这里在主goroutine关闭了channel之后，子goroutine里的for range循环才会结束。
+for range在收到close的信号后，会自动退出循环
 */

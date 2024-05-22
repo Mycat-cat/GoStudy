@@ -20,7 +20,7 @@ func add(ch chan bool, num *int) {
 }
 
 func main() {
-	ch := make(chan bool, 1)
+	ch := make(chan bool, 1) //如果只是用来当锁的话，实际上ch := make(chan struct{},1)的效率更高，因为空结构体节省内存
 
 	var num int
 	for i := 0; i < 100; i++ {
