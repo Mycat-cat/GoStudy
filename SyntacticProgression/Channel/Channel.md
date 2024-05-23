@@ -1,3 +1,14 @@
+<!-- TOC -->
+* [Channel](#channel)
+  * [Channel初始化](#channel初始化)
+  * [Channel操作](#channel操作)
+    * [判定读取](#判定读取)
+    * [For range读取](#for-range读取)
+  * [双向Channel和单向Channel](#双向channel和单向channel)
+  * [Channel解决了什么问题？](#channel解决了什么问题)
+    * [扩展](#扩展)
+  * [关于Channel的几点总结](#关于channel的几点总结)
+<!-- TOC -->
 # Channel
 - 用于不同的Goroutine之间通信
 - Channel是一个可以收发数据的管道
