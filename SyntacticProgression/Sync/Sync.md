@@ -74,3 +74,35 @@ func(rw *RWMutex) RUnlock() // 读读锁解锁
 
 读写锁示例：
 参见SyncExample6
+
+### 死锁
+死锁是一种状态，当两个或两个以上的goroutine在执行过程中，因抢夺共享资源处在互相等待的状态。如果没有外部干涉将会一直处于这种阻塞状态，我们称这时的系统发生了死锁。
+
+#### 死锁场景
+##### Lock/UnLock不成对
+最常见场景就是对锁进行拷贝使用。
+参见SyncExample7
+
+在使用锁的时候，我们应当尽量避免锁拷贝，并且保证Lock()和Unlock()成对出现，
+没有成对出现容易会出现死锁的情况，或者是Unlock一个未加锁的Mutex而导致panic。
+
+```go
+mu.Lock()
+defer mu.Unlock()
+```
+
+##### 循环等待
+循环等待造成死锁：如A等B，B等C，C等A，循环等待
+
+参见SyncExample8
+
+## sync.Map
+map不能同时被多个goroutine读写
+解决方法：
+1. 对map加锁
+2. sync.Map(Go 1.9引入)
+
+sync.Map无需初始化即可使用，内置操作方法。
+
+**sync.Map没有提供获取map数量的方法，需要我们对其进行遍历计算，为了保证并发安全存在性能损失，在非并发情况下，map性能优于sync.Map**
+
