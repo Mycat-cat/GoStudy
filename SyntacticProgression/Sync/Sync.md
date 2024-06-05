@@ -106,3 +106,64 @@ sync.Map无需初始化即可使用，内置操作方法。
 
 **sync.Map没有提供获取map数量的方法，需要我们对其进行遍历计算，为了保证并发安全存在性能损失，在非并发情况下，map性能优于sync.Map**
 
+## sync/Atomic
+### atomic和mutex的区别
+
+操作方式：
+
+- mutex：用于保护一段执行逻辑
+- atomic：对变量进行操作
+
+底层实现：
+
+- mutex：操作系统调度器实现
+- atomic：底层硬件指令支持，保证在cpu上执行不中断，atomic的性能也能随cpu的个数增加线性提升
+```go
+func AddT(addr *T, delta T)(new T)
+func StoreT(addr *T, val T)
+func LoadT(addr *T)(val T)
+func SwapT(addr *T, new T)(old T)
+func CompareAndSwapT(addr *T, old, new T)(swapped bool)
+```
+
+### atomic.value
+atomic既可针对基本数据类型做原子操作，也可对多个变量进行同步保护，如struct复合类型。
+提供:
+- Load：从value读出数据
+```go
+func (v *Value) Load() (val any)
+```
+- Store：向value写入数据
+```go
+func (v *Value) Store (val any)
+```
+- Swap：用new交换value中存储的数据，返回value原来存储的旧数据
+```go
+func (v *Value) Swap (new any) (old any)
+```
+- CompareAndSwap：比较value中存储的数据和old是否相同，相同的话，将value中的数据替换为new
+```go
+func (v *Value) CompareAndSwap (old, new any) (swapped bool)
+```
+
+## sync.pool
+sync.Pool是在sync包下的一个内存池组件，用来实现对象的复用，避免重复创建相同的对象，造成频
+繁的内存分配和gc，以达到提升程序性能的目的。虽然池子中的对象可以被复用，但是是sync.Pool并
+不会永久保存这个对象，池子中的对象会在一定时间后被gc回收，这个时间是随机的。所以，用
+sync.Pool来持久化存储对象是不可取的。
+另外，sync.Pool本身是并发安全的，支持多个goroutine并发的往sync.Poo存取数据
+### sync.pool使用方法
+- New()：sync.Pool的构造函数，用于指定sync.Pool中缓存的数据类
+  型，当调用Get方法从对象池中获取对象的时候，对象池中如
+  果没有，会调用New方法创建一个新的对象
+- Get()：从对象池取对象
+- Put()：往对象池放对象
+
+**注意：取出放入之前记得Reset，不然初始对象无法复用**
+### sync.pool使用场景
+1. sync.pool主要是通过对象复用来降低gc带来的性能损耗，所以在高并发场景下，由于每个
+   goroutine都可能过于频繁的创建一些大对象，造成gc压力很大。所以在高并发业务场景下出现
+   GC 问题时，可以使用 sync.Pool 减少 GC 负担
+2. sync.pool不适合存储带状态的对象，比如socket 连接、数据库连接等，因为里面的对象随时可能会被gc回收释放掉
+3. 不适合需要控制缓存对象个数的场景，因为Poo池里面的对象个数是随机变化的，因为池子里的
+   对象是会被gc的，且释放时机是随机的
