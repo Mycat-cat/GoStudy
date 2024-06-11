@@ -1,3 +1,26 @@
+<!-- TOC -->
+* [Sync](#sync)
+  * [sync.WaitGroup](#syncwaitgroup)
+    * [Channel](#channel)
+    * [sync.WaitGroup](#syncwaitgroup-1)
+  * [sync.Once](#synconce)
+    * [与init()的区别](#与init的区别)
+  * [sync.Lock](#synclock)
+    * [锁](#锁)
+      * [互斥锁Mutex](#互斥锁mutex)
+      * [读写锁RWMutex](#读写锁rwmutex)
+    * [死锁](#死锁)
+      * [死锁场景](#死锁场景)
+        * [Lock/UnLock不成对](#lockunlock不成对)
+        * [循环等待](#循环等待)
+  * [sync.Map](#syncmap)
+  * [sync/Atomic](#syncatomic)
+    * [atomic和mutex的区别](#atomic和mutex的区别)
+    * [atomic.value](#atomicvalue)
+  * [sync.pool](#syncpool)
+    * [sync.pool使用方法](#syncpool使用方法)
+    * [sync.pool使用场景](#syncpool使用场景)
+<!-- TOC -->
 # Sync
 Channel中我们提到，Go语言并发编程中，我们倡导通信共享内存，不使用共享内存通信，
 Goroutine采用Channel来协作。但Go也提供了对共享内存并发安全机制的支持，这些内容都
