@@ -1,3 +1,11 @@
+<!-- TOC -->
+* [Select](#select)
+  * [Select用法](#select用法)
+    * [空select永久阻塞](#空select永久阻塞)
+    * [没有default且case无法执行的select永久阻塞](#没有default且case无法执行的select永久阻塞)
+    * [有单一case和default的select](#有单一case和default的select)
+    * [有多个case和default的select](#有多个case和default的select)
+<!-- TOC -->
 # Select
 Go语言层面提供的一种多路复用机制，用于检测当前goroutine连接的多个channel是否有数据准备完毕，可用于读或写
 
