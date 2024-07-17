@@ -1,3 +1,14 @@
+<!-- TOC -->
+* [channel](#channel)
+  * [channel是什么](#channel是什么)
+  * [channel数据结构](#channel数据结构)
+  * [channel操作](#channel操作)
+    * [channel初始化](#channel初始化)
+    * [channel写入](#channel写入)
+    * [channel读取](#channel读取)
+    * [channel关闭](#channel关闭)
+  * [Selcet](#selcet)
+<!-- TOC -->
 # channel
 ## channel是什么
 - 通信管道，被设计用于实现goroutine之间的通信
