@@ -1,3 +1,7 @@
+<!-- TOC -->
+* [GMP](#gmp)
+  * [重点介绍](#重点介绍)
+<!-- TOC -->
 # GMP
 B站讲解视频《Golang深入理解GMP模型》
 https://www.bilibili.com/video/BV19r4y1w7Nx?p=1&vd_source=e9d96e3ff5d68e6350d7ad85275b2492
